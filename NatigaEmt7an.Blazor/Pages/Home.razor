@@ -1,0 +1,121 @@
+﻿@page "/"
+@page "/students"
+@layout MainNav;
+@using static NatigaEmt7an.Blazor.Services.TrArEnumService
+
+<PageTitle>بحث</PageTitle>
+<h3 class="text-center mt-3">البحث عن الطلاب</h3>
+<div class="accordion mt-3 shadow border-top p-3 rounded" id="searchAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSearch">
+            <button class="accordion-button accordion-button-left" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                بحث عن الطلاب
+            </button>
+        </h2>
+        <div id="collapseSearch" class="accordion-collapse collapse show" aria-labelledby="headingSearch" data-bs-parent="#searchAccordion">
+            <div class="accordion-body">
+                <div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المحافظة</label>
+                        <select class="form-select select-left" @bind="SelectedGovernorateId" @bind:after="ChangeGovernorate">
+                            <option value="">الكل</option>
+                            @foreach (var gov in Governorates)
+                            {
+                                <option value="@gov.Id">@gov.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">الإدارة</label>
+                        <select class="form-select select-left" @bind="SelectedAdministrationId" @bind:after="ChangeAdministration">
+                            <option value="">الكل</option>
+                            @foreach (var admin in Administrations)
+                            {
+                                <option value="@admin.Id">@admin.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المدرسة</label>
+                        <select class="form-select select-left" @bind="SelectedSchoolId">
+                            <option value="">الكل</option>
+                            @foreach (var school in Schools)
+                            {
+                                <option value="@school.Id">@school.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <input type="search" class="form-control my-3" placeholder="كلمة البحث" style="border: 2px gray solid;" @bind-value="SearchText">
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-dark" @onclick="Search">بحث</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (PageStudentList!=null && PageStudentList.Data!=null)
+    {
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>رقم الجلوس</th>
+                    <th>الاسم</th>
+                    <th>الشعبة</th>
+                    <th>الحالة</th>
+                    <th>المجموع</th>
+                    <th class="text-center">-</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (PageStudentList?.Data?.Any() == true)
+                {
+                    @foreach (var student in PageStudentList.Data)
+                    {
+                        <tr>
+                            <td>@student.SeatNumber</td>
+                            <td>@student.Name</td>
+                            <td>@GetArabicCategory(student.Category)</td>
+                            <td>@GetArabicStatus(student.Status)</td>
+                            <td>@student.TotalGrades</td>
+                            <td class="text-center"><input class="btn btn-outline-dark" @onclick="()=>ShowDetails(student.Id)" type="button" value="عرض التفاصيل" /></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد بيانات</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+   
+
+    @if (PageStudentList?.Data?.Any() == true)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(PageStudentList.CurrentPage == 1 ? "disabled" : "")">
+                    <button class="page-link link-dark" @onclick="() => ChangePage(PageStudentList.CurrentPage - 1)">السابق</button>
+                </li>
+
+                @foreach (var pg in GetDisplayedPages())
+                {
+                    <li class="page-item">
+                        <button class="page-link link-dark @(PageStudentList.CurrentPage == pg ? "activeBtn" : "")" @onclick="() => ChangePage(pg)">@pg</button>
+                    </li>
+                }
+
+                <li class="page-item @(PageStudentList.CurrentPage == PageStudentList.TotalPages ? "disabled" : "")">
+                    <button class="page-link link-dark" @onclick="() => ChangePage(PageStudentList.CurrentPage + 1)">التالي</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

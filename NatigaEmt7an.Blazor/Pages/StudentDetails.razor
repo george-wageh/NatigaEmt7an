@@ -1,0 +1,161 @@
+﻿@page "/students/{Id:guid}"
+@using static NatigaEmt7an.Blazor.Services.TrArEnumService
+@if (User != null)
+{
+    <div class="container mt-3 shadow border-top p-3 rounded">
+        <div class="row border border-secondary rounded p-2 m-2">
+            <div class="col">
+                <table class="table mt-4">
+                    <tbody>
+                        <tr>
+                            <th>الاسم</th>
+                            <td>@User.Name</td>
+                        </tr>
+                        <tr>
+                            <th>رقم الجلوس</th>
+                            <td>@User.SeatNumber</td>
+                        </tr>
+                        <tr>
+                            <th>الاداره</th>
+                            <td>@User.AdministrationName</td>
+                        </tr>
+                        <tr>
+                            <th>المدرسه</th>
+                            <td>@User.SchoolName</td>
+                        </tr>
+                        <tr>
+                            <th>الشعبة</th>
+                            <td>@GetArabicCategory(User.Category)</td>
+                        </tr>
+                        <tr>
+                            <th>الحالة</th>
+                            <td>@GetArabicStatus(User.Status)</td>
+                        </tr>
+                        <tr>
+                            <th>المجموع</th>
+                            <td>@User.TotalGrades</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress" style="height: 22px;" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-dark" style="width:@(User.TotalGrades / 410m * 100m)%;">
+                                        <div style="font-size: large;">@((User.TotalGrades / 410m * 100m).ToString("F2"))%</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+   
+        </div>
+
+        <div class="accordion mt-2 p-2" id="accordionExample">
+            @if (User.Grades != null)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed accordion-button-left" type="button" data-bs-toggle="collapse" data-bs-target="#gradesCollapse" aria-expanded="false" aria-controls="gradesCollapse">
+                            درجات المواد الأساسية
+                        </button>
+                    </h2>
+                    <div id="gradesCollapse" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table mt-4 border">
+                                <tbody>
+                                    @if (User.Grades.Ar >= 0)
+                                    {
+                                        <tr><th>اللغة العربية</th><td>@User.Grades.Ar / 80</td></tr>
+                                    }
+                                    @if (User.Grades.Foreign1 >= 0)
+                                    {
+                                        <tr><th>اللغة الأجنبية الأولى</th><td>@User.Grades.Foreign1 / 50</td></tr>
+                                    }
+                                    @if (User.Grades.Foreign2 >= 0)
+                                    {
+                                        <tr><th>اللغة الأجنبية الثانية</th><td>@User.Grades.Foreign2 / 40</td></tr>
+                                    }
+                                    @if (User.Grades.Chemistry >= 0)
+                                    {
+                                        <tr><th>الكيمياء</th><td>@User.Grades.Chemistry / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Physics >= 0)
+                                    {
+                                        <tr><th>الفيزياء</th><td>@User.Grades.Physics / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Math1 >= 0)
+                                    {
+                                        <tr><th>الرياضيات البحتة</th><td>@User.Grades.Math1 / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Math2 >= 0)
+                                    {
+                                        <tr><th>الرياضيات التطبيقية</th><td>@User.Grades.Math2 / 60</td></tr>
+                                    }
+                                    @if (User.Grades.History >= 0)
+                                    {
+                                        <tr><th>التاريخ</th><td>@User.Grades.History / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Geography >= 0)
+                                    {
+                                        <tr><th>الجغرافيا</th><td>@User.Grades.Geography / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Philosophy >= 0)
+                                    {
+                                        <tr><th>الفلسفة والمنطق</th><td>@User.Grades.Philosophy / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Psychology >= 0)
+                                    {
+                                        <tr><th>علم النفس والاجتماع</th><td>@User.Grades.Psychology / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Biology >= 0)
+                                    {
+                                        <tr><th>الأحياء</th><td>@User.Grades.Biology / 60</td></tr>
+                                    }
+                                    @if (User.Grades.Geology >= 0)
+                                    {
+                                        <tr><th>الجيولوجيا وعلوم البيئة</th><td>@User.Grades.Geology / 60</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (User.OutGrades != null)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed accordion-button-left" type="button" data-bs-toggle="collapse" data-bs-target="#outGradesCollapse" aria-expanded="false" aria-controls="outGradesCollapse">
+                            درجات المواد الغير مضافة للمجموع
+                        </button>
+                    </h2>
+                    <div id="outGradesCollapse" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table mt-4 border">
+                                <tbody>
+                                    @if (User.OutGrades.ReligionEdu >= 0)
+                                    {
+                                        <tr><th>التربية الدينية</th><td>@User.OutGrades.ReligionEdu / 25</td></tr>
+                                    }
+                                    @if (User.OutGrades.NationalEdu >= 0)
+                                    {
+                                        <tr><th>التربية الوطنية</th><td>@User.OutGrades.NationalEdu / 25</td></tr>
+                                    }
+                                    @if (User.OutGrades.EconomicsStatistics >= 0)
+                                    {
+                                        <tr><th>الإقتصاد والإحصاء</th><td>@User.OutGrades.EconomicsStatistics / 50</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else{
+<div>لم يتم العثور علي الطالب</div>
+}

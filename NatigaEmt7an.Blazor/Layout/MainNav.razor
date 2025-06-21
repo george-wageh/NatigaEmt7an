@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+<div class="page">
+    <nav class="navbar navbar-expand navbar-light bg-light">
+        @* <a class="navbar-brand" href="#">نتيجه الطلاب</a> *@
+        <div class="m-auto">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <NavLink class="nav-link" href="students" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> بحث
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="top-students" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> أوائل الطلاب
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="student-statistics" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> إحصائيات الطلاب
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

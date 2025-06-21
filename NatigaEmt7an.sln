@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatigaEmt7an.Api", "NatigaEmt7an.Api\NatigaEmt7an.Api.csproj", "{CCF4B770-485D-4775-9DB3-5278BAE5B776}"
+	ProjectSection(ProjectDependencies) = postProject
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7} = {797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatigaEmt7an.Contracts", "NatigaEmt7an.Contracts\NatigaEmt7an.Contracts.csproj", "{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFE4C729-6838-47B0-88CF-10F54D04C441} = {AFE4C729-6838-47B0-88CF-10F54D04C441}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatigaEmt7an.LoadData", "NatigaEmt7an.LoadData\NatigaEmt7an.LoadData.csproj", "{067B0AF5-F79B-48EE-BF0F-4387ABEBC45B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFE4C729-6838-47B0-88CF-10F54D04C441} = {AFE4C729-6838-47B0-88CF-10F54D04C441}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatigaEmt7an.Models", "NatigaEmt7an.Models\NatigaEmt7an.Models.csproj", "{AFE4C729-6838-47B0-88CF-10F54D04C441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatigaEmt7an.Blazor", "NatigaEmt7an.Blazor\NatigaEmt7an.Blazor.csproj", "{B878E86E-8CD5-446C-8D42-E6167103F0E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7} = {797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCF4B770-485D-4775-9DB3-5278BAE5B776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF4B770-485D-4775-9DB3-5278BAE5B776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF4B770-485D-4775-9DB3-5278BAE5B776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF4B770-485D-4775-9DB3-5278BAE5B776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{797F22CE-E40D-4B45-AA9E-E83AF3E3FAE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{067B0AF5-F79B-48EE-BF0F-4387ABEBC45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067B0AF5-F79B-48EE-BF0F-4387ABEBC45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067B0AF5-F79B-48EE-BF0F-4387ABEBC45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067B0AF5-F79B-48EE-BF0F-4387ABEBC45B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE4C729-6838-47B0-88CF-10F54D04C441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE4C729-6838-47B0-88CF-10F54D04C441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE4C729-6838-47B0-88CF-10F54D04C441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE4C729-6838-47B0-88CF-10F54D04C441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B878E86E-8CD5-446C-8D42-E6167103F0E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B878E86E-8CD5-446C-8D42-E6167103F0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B878E86E-8CD5-446C-8D42-E6167103F0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B878E86E-8CD5-446C-8D42-E6167103F0E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDFC0934-67E9-49AF-BF8D-6166C1050F2E}
+	EndGlobalSection
+EndGlobal

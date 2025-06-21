@@ -1,0 +1,109 @@
+﻿@page "/top-students"
+@using NatigaEmt7an.Models.Enums
+@using static NatigaEmt7an.Blazor.Services.TrArEnumService
+
+<PageTitle> أوائل الطلاب</PageTitle>
+
+<h3 class="text-center mt-3">البحث عن الطلاب المتفوقين</h3>
+
+<div class="accordion mt-3 shadow border-top p-3 rounded" id="searchAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSearch">
+            <button class="accordion-button accordion-button-left" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                بحث عن الطلاب
+            </button>
+        </h2>
+        <div id="collapseSearch" class="accordion-collapse collapse show" aria-labelledby="headingSearch" data-bs-parent="#searchAccordion">
+            <div class="accordion-body">
+                <div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المحافظة</label>
+                        <select class="form-select select-left" @bind="SelectedGovernorateId" @bind:after="ChangeGovernorate">
+                            <option value="">الكل</option>
+                            @foreach (var gov in Governorates)
+                            {
+                                <option value="@gov.Id">@gov.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">الإدارة</label>
+                        <select class="form-select select-left" @bind="SelectedAdministrationId" @bind:after="ChangeAdministration">
+                            <option value="">الكل</option>
+                            @foreach (var admin in Administrations)
+                            {
+                                <option value="@admin.Id">@admin.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المدرسة</label>
+                        <select class="form-select select-left" @bind="SelectedSchoolId">
+                            <option value="">الكل</option>
+                            @foreach (var school in Schools)
+                            {
+                                <option value="@school.Id">@school.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-check-label">الشعبة</label>
+                        <select class="form-select select-left" @bind="SelectedCategory">
+                            <option value="">كل الشعب</option>
+                            <option value="@StudentCategory.Literary">ادبي</option>
+                            <option value="@StudentCategory.ScientificScience">علمي علوم</option>
+                            <option value="@StudentCategory.ScientificMath">علمي رياضه</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-dark" @onclick="Search">بحث</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Students != null && Students != null)
+    {
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>رقم الجلوس</th>
+                    <th>الاسم</th>
+                    <th>الشعبة</th>
+                    <th>الحالة</th>
+                    <th>المجموع</th>
+                    <th class="text-center">-</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Students?.Any() == true)
+                {
+                    @for (var i = 0; i < Students.Count; i++)
+                    {
+                        var student = Students[i];
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@student.SeatNumber</td>
+                            <td>@student.Name</td>
+                            <td>@GetArabicCategory(student.Category)</td>
+                            <td>@GetArabicStatus(student.Status)</td>
+                            <td>@student.TotalGrades</td>
+                            <td class="text-center"><input class="btn btn-outline-dark" @onclick="()=>ShowDetails(student.Id)" type="button" value="عرض التفاصيل" /></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد بيانات</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+  
+</div>

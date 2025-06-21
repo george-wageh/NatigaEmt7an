@@ -1,0 +1,141 @@
+﻿@page "/student-statistics"
+@using Blazorise.Charts
+@using System.Threading.Tasks
+@using static NatigaEmt7an.Blazor.Services.TrArEnumService
+
+<PageTitle>إحصائيات الطلاب</PageTitle>
+<h3 class="text-center mt-3">إحصائيات الطلاب</h3>
+<div class="accordion mt-3 shadow border-top p-3 rounded" id="searchAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSearch">
+            <button class="accordion-button accordion-button-left" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                خيارات البحث
+            </button>
+        </h2>
+        <div id="collapseSearch" class="accordion-collapse collapse show" aria-labelledby="headingSearch" data-bs-parent="#searchAccordion">
+            <div class="accordion-body">
+                <div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المحافظة</label>
+                        <select class="form-select select-left" @bind="SelectedGovernorateId" @bind:after="ChangeGovernorate">
+                            <option value="">الكل</option>
+                            @foreach (var gov in Governorates)
+                            {
+                                <option value="@gov.Id">@gov.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">الإدارة</label>
+                        <select class="form-select select-left" @bind="SelectedAdministrationId" @bind:after="ChangeAdministration">
+                            <option value="">الكل</option>
+                            @foreach (var admin in Administrations)
+                            {
+                                <option value="@admin.Id">@admin.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-check-label">المدرسة</label>
+                        <select class="form-select select-left" @bind="SelectedSchoolId">
+                            <option value="">الكل</option>
+                            @foreach (var school in Schools)
+                            {
+                                <option value="@school.Id">@school.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-dark" @onclick="Search">بحث</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-md">
+
+        <div class="row border my-2 p-3" hidden="@(StatusCategories == null)">
+            <h4 class="text-center">إحصاء المجاميع التكرارية</h4>
+            @if (GradeClassifications != null && GradeClassifications.Any())
+            {
+                <div class="col-xl-6 col-lg-12 col-md-12 col-12">
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th>الشعبه</th>
+                                @foreach (var label in Labels1)
+                                {
+                                    <th>@label</th>
+                                }
+                                <th>المجموع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var grades in GradeClassifications)
+                            {
+                                <tr>
+                                    <td>@GetArabicCategory(grades.Category)</td>
+                                    <td>@grades.G_410_369</td>
+                                    <td>@grades.G_369_349</td>
+                                    <td>@grades.G_349_308</td>
+                                    <td>@grades.G_308_246</td>
+                                    <td>@grades.G_246_205</td>
+                                    <td>@grades.G_205_0</td>
+                                    <td>@Sum(grades)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            <div class="col-xl-6 col-lg-12 col-md-12 col-12" >
+                <Chart @ref="chart1" Type="ChartType.Bar" TItem="double"  />
+            </div>
+        </div>
+
+        <div class="row border my-2 p-3" hidden="@(StatusCategories == null)">
+            <h4 class="text-center">إحصاء حالة الطلاب</h4>
+            @if (StatusCategories != null && StatusCategories.Any())
+            {
+                <div class="col-xl-6 col-lg-12 col-md-12 col-12">
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th>الشعبه</th>
+                                @foreach (var label in Labels2)
+                                {
+                                    <th>@label</th>
+                                }
+                                <th>المجموع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var status in StatusCategories)
+                            {
+                                <tr>
+                                    <td>@GetArabicCategory(status.Category)</td>
+                                    <td>@status.PassedCount</td>
+                                    <td>@status.SecondRoundCount</td>
+                                    <td>@status.FailedCount</td>
+                                    <td>@Sum(status)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            <div class="col-xl-6 col-lg-12 col-md-12 col-12">
+                <Chart @ref="chart2" Type="ChartType.Bar" TItem="double" />
+            </div>
+        </div>
+     
+        
+    </div>
+
+</div>
