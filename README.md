@@ -1,1 +1,2 @@
-View more projects: https://george-wageh.github.io/portfolio/projects
+## View more projects:
+https://george-wageh.github.io/portfolio/projects
